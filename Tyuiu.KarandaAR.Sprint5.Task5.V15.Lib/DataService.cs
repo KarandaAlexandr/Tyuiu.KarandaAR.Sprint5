@@ -12,32 +12,38 @@ namespace Tyuiu.KarandaAR.Sprint5.Task5.V15.Lib
     {
         public double LoadFromDataFile(string path)
         {
-            double res = 10000;
-            using (StreamReader reader = new StreamReader(path))
+            try
             {
-                string line;
+                // Чтение данных из файла
+                string[] lines = File.ReadAllLines(path);
 
-
-                while ((line = reader.ReadLine()) != null)
-                {
-                    foreach (char element in line)
+                // Преобразуем все строки в массив чисел (вещественные числа)
+                var numbers = lines
+                    .SelectMany(line => line.Split(new char[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries)) // Разделение по пробелам, табуляции и запятой
+                    .Select(str =>
                     {
-                        if (element == ',')
-                        {
-                            if (Convert.ToDouble(line) % 5 == 0 && res > Convert.ToDouble(line))
-                            {
-                                res = Convert.ToDouble(line);
-                                res = Math.Round(res, 3);
+                        double num;
+                        return double.TryParse(str, out num) ? num : (double?)null;
+                    })
+                    .Where(num => num.HasValue)
+                    .Select(num => num.Value)
+                    .ToList();
 
+                // Ищем минимальное число, которое делится на 5
+                var minDivisibleByFive = numbers
+                    .Where(num => num % 5 == 0) // Фильтруем числа, которые делятся на 5
+                    .OrderBy(num => num) // Сортируем по возрастанию
+                    .FirstOrDefault(); // Берем первое минимальное
 
-                            }
-                        }
-
-                    }
-
+                if (minDivisibleByFive != 0)
+                {
+                    return minDivisibleByFive;
                 }
             }
-            return res;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
 
         }
     }
