@@ -14,7 +14,7 @@ namespace Tyuiu.KarandaAR.Sprint5.Task1.V15.Lib
     {
         public string SaveToFileTextData(int startValue, int stopValue)
         {
-            string path = $@"{Directory.GetCurrentDirectory()}\OutPutFileTask1.txt";
+            string path = Path.Combine(new string[] { Path.GetTempPath(), "OutPutFileTask1.txt" });
             FileInfo fileInfo = new FileInfo(path);
             bool fileExists = fileInfo.Exists;
 
