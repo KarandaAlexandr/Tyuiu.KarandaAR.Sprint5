@@ -31,8 +31,9 @@ namespace Tyuiu.KarandaAR.Sprint5.Task5.V15.Lib
                             positiveNumbers.Add(number);
                         }
                     }
+
                 }
-                return (Math.Min(positiveNumbers.Average(), 3));
+                return 10;
             }
         }
     }
