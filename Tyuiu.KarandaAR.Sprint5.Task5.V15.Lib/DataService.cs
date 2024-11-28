@@ -19,7 +19,7 @@ namespace Tyuiu.KarandaAR.Sprint5.Task5.V15.Lib
 
                 // Преобразуем все строки в массив чисел (вещественные числа)
                 var numbers = lines
-                    .SelectMany(line => line.Split(new char[] { ' ', '\t', ',', ';' }, StringSplitOptions.RemoveEmptyEntries)) // Разделяем по пробелам, табуляции, запятой, точке с запятой
+                    .SelectMany(line => line.Split(new char[] { ' ', '\t', ',', ';', '\n' }, StringSplitOptions.RemoveEmptyEntries)) // Разделяем по пробелам, табуляции, запятой, точке с запятой
                     .Select(str =>
                     {
                         double num;
