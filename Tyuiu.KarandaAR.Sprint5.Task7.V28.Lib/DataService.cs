@@ -6,7 +6,35 @@ namespace Tyuiu.KarandaAR.Sprint5.Task7.V28.Lib
     {
         public string LoadDataAndSave(string path)
         {
-            throw new NotImplementedException();
+            string pathsavefile = Path.Combine(Path.GetTempPath(), "OutPutFileTask7.txt");
+            FileInfo fileInfo = new FileInfo(pathsavefile);
+            bool fileExists = fileInfo.Exists;
+            if (fileExists)
+            {
+                File.Delete(pathsavefile);
+            }
+            string strline = "";
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    for (int i = 0; i < line.Length; i++)
+                    {
+                        if ((line[i] == ' ') && (line[i + 1] == ' '))
+                        {
+
+                        }
+                        else
+                        {
+                            strline += line[i];
+                        }
+
+                    }
+                    File.AppendAllText(pathsavefile, strline + Environment.NewLine);
+                }
+            }
+            return pathsavefile;
         }
     }
 }
